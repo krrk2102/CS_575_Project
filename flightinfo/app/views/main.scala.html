@@ -1,0 +1,67 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/countries.js")" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    </head>
+    <body ng-app>
+        <div>
+            <img src="@routes.Assets.at("images/plane.jpg")" class="banner_img" id="highest">
+            <a class="welcome">Welcome to Flight Database System</a>
+            <div ng-hide="true">{{Op}}</div>
+            <nav class="navbar navbar-default" ng-click="$event.preventDefault()" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Fligh Info</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">Query
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#Flight Information" ng-click="Op='FI'">Flight Information</a></li>
+                                <li><a href="#Route Information" ng-click="Op='RI'">Route Information</a></li>
+                                <li><a href="#All Destinations of Selected Airport" ng-click="Op='ADSA'">All Destinations of Selected Airport</a></li>
+                                <li><a href="#Get Flight List of Selected Carrier" ng-click="Op='GFLSC'">Get Flight List of Selected Carrier</a></li>
+                                <li><a href="#Passenger Traval Records" ng-click="Op='PTR'">Passenger Traval Records</a></li>
+                                <li><a href="#Find All Passengers of Selected Flight" ng-click="Op='FAPSF'">Find All Passengers of Selected Flight</a></li>
+                                <li><a href="#Airline Transportation Statistics by Carriers" ng-click="Op='ATSC'">Airline Transportation Statistics by Carriers</a></li>
+                                <li><a href="#Airline Transportation Statistics by Countries" ng-click="Op='ATSCo'">Airline Transportation Statistics by Countries</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">Update
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                               <li><a href="#Add a Flight" ng-click="Op='AF'">Add a Flight</a></li>
+                               <li><a href="#Add an Airport" ng-click="Op='AA'">Add an Airport</a></li>
+                               <li><a href="#Add an Aircraft Manufacturer" ng-click="Op='AAM'">Add an Aircraft Manufacturer</a></li>
+                               <li><a href="#Add a Passenger" ng-click="Op='AP'">Add a Passenger</a></li>
+                               <li><a href="#Add a New Plane" ng-click="Op='ANP'">Add a New Plane</a></li>
+                               <li><a href="#Add a Carrier" ng-click="Op='AC'">Add a Carrier</a></li>
+                               <li><a href="#Add a Ticket" ng-click="Op='AT'">Add a Ticket</a></li>
+                           </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <p ng-hide="Op">Please select an operation.</p>
+        <div class="content">@content</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    </body>
+</html>

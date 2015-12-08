@@ -1,0 +1,447 @@
+@main("Welcome to Airline Info Hub") {
+  <script type='text/javascript' src='@routes.Assets.at("js/index.js")'></script>
+  <script type= "text/javascript" src='@routes.Assets.at("js/countries.js")'></script>
+
+  <div id="Flight Information" ng-show="Op=='FI'"><h3>Flight Information</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Airline</label>
+          <div class="col-sm-10" id="carrier_dropdown" style="display: inline" ></div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Flight Number</label> 
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="flight_num" placeholder="Plase enter pure number" />
+          </div>
+      </div>
+      <button class="btn btn-info" onclick="listFlight()">Submit</button>
+    </form>
+    <div id="flight_info"></div>
+  <br>
+  </div>
+
+  <div id="Route Information" ng-show="Op=='RI'"><h3>Route Information</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Source</label>     
+          <div class="col-sm-10" id="airport_dropdown1" style="display: inline" ></div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Destination</label> 
+          <div class="col-sm-10" id="airport_dropdown2" style="display: inline" ></div>
+      </div>
+      <div class="form-group">
+        <label for="date" class="col-sm-2 control-label">Date</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="date" name="route_date" />
+        </div>
+       </div>
+     <button class="btn btn-info" onclick="listRoutes()">Submit</button>
+    </form>
+  <div id="route_info"></div>
+  <br>
+  </div>
+
+  <div id="All Destinations of Selected Airport" ng-show="Op=='ADSA'"><h3>All Destinations of Selected Airport</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="source" class="col-sm-2 control-label">Source</label>   
+          <div class="col-sm-10" id="airport_dropdown" style="display: inline" ></div>
+      </div>
+      <button class="btn btn-info" onclick="listAirports()">Submit</button>
+    </form>
+  <div id="reachable_airports"></div>
+  <br>
+  </div>
+  
+  <div id="Get Flight List of Selected Carrier" ng-show="Op=='GFLSC'"><h3>Get Flight List of Selected Carrier</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="carrier" class="col-sm-2 control-label">Carrier Selection</label>    
+           <div class="col-sm-10" id="carrier_dropdown1" style="display: inline" ></div>
+      </div>
+      <button class="btn btn-info" onclick="listCarrierFlights()">Submit</button>
+    </form>
+  <div id="carrier_flights"></div>
+  <br>
+  </div>
+  
+  <div id="Passenger Traval Records" ng-show="Op=='PTR'"><h3>Passenger Traval Records</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="firstname" class="col-sm-2 control-label">First Name</label>     
+        <div class="col-sm-10"> 
+          <input type="text" class="form-control" name="record_first_name" placeholder="Please enter passenger first name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="col-sm-2 control-label">Last Name</label> 
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="record_last_name" placeholder="Please enter passenger last name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob" class="col-sm-2 control-label">Date of Birth</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="date" name="record_dob" />
+        </div>
+      </div>
+    <button class="btn btn-info" onclick="listBoughtTickets()">Submit</button>
+  </form>
+  <div id="bought_tickets"></div>
+  <br>
+  </div>
+  
+  <div id="Find All Passengers of Selected Flight" ng-show="Op=='FAPSF'"><h3>Find All Passengers of Selected Flight</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+  	<label for="carrier" class="col-sm-2 control-label">Carrier</label>
+          <div class="col-sm-10" id="carrier_dropdown2" style="display: inline" ></div>
+      </div>
+      <div class="form-group">
+        <label for="flightNo" class="col-sm-2 control-label">Flight Number</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="take_flight_num" placeholder="Please enter pure number here"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="flightDate" class="col-sm-2 control-label">Flight Date</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="date" name="take_flight_date" />
+        </div>
+      </div>
+    <button class="btn btn-info" onclick="listTakingPassengers()">Submit</button>
+  </form>
+  <div id="taking_passengers"></div>
+  <br>
+  </div>
+  
+  <div id="Airline Transportation Statistics by Carriers" ng-show="Op=='ATSC'"><h3>Airline Transportation Statistics by Carriers</h3>
+  <form class="form-horizontal" role="form">
+     <div class="form-group">
+  	<label for="carrier" class="col-sm-2 control-label">Carrier</label>
+        <div class="col-sm-10" id="carrier_dropdown3" style="display: inline" ></div>
+     </div>
+    <button class="btn btn-info" onclick="listCarrierStats()">List Carrier Stats</button>
+  </form>
+  <div id="stats_by_carrier"></div>
+  </div>
+  
+  <div id="Airline Transportation Statistics by Countries" ng-show="Op=='ATSCo'"><h3>Airline Transportation Statistics by Countries</h3>
+  <form class="form-horizontal" role="form">
+     <div class="form-group">
+        <label for="country" class="col-sm-2 control-label">Country</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="CountryStats" name ="CountryStats"></select>
+            <script language="javascript">
+               populateCountries("CountryStats");
+            </script>
+        </div>
+     </div>
+     <button class="btn btn-info" onclick="listCountryStats()">List Country Stats</button>
+  </form>
+  <div id="stats_by_countries"></div>
+  <br>
+  </div>
+  
+  
+
+  <div id="Add a Flight" ng-show="Op=='AF'"><h3>Add a Flight</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addFlight()" method="post">
+      <div class="form-group">
+        <label for="flightNo" class="col-sm-2 control-label">Flight Number</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="Num" placeholder="Please include carrier code"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="flightDate" class="col-sm-2 control-label">Flight Date</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="date" name="DepartureDate" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dTime" class="col-sm-2 control-label">Departure Time</label>
+        <div class="col-sm-10">
+          <div class="form-group row">
+            <div class="col-sm-5">
+              <input class="form-control" type="number" name="DepartureTimeH" placeholder="Please enter hour(s) here (in 24h)"/>
+            </div>
+            <div class="col-sm-5">
+              <input class="form-control" type="number" name="DepartureTimeM" placeholder="Please enter minutes(s) here"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="DuTime" class="col-sm-2 control-label">Flight Duration</label>
+        <div class="col-sm-10">
+          <div class="form-group row">
+            <div class="col-sm-5">
+              <input class="form-control" type="number" name="DurationH" placeholder="Please enter hours here (in 24h)"/>
+            </div>
+            <div class="col-sm-5">
+              <input class="form-control" type="number" name="DurationM" placeholder="Please enter minutes here"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tailnum" class="col-sm-2 control-label">Plane Tailnumber</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="TailNum" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ori" class="col-sm-2 control-label">Origin Airport</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="Ori" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="des" class="col-sm-2 control-label">Destination Airport</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="Des" />
+        </div>
+      </div>
+      <button class="btn btn-success">Add Flight</button>
+    </form>
+  <br>
+  </div>
+
+  <div id="Add an Airport" ng-show="Op=='AA'"><h3>Add an Airport</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addAirport()" method="post">
+      <div class="form-group">
+        <label for="airport" class="col-sm-2 control-label">Airport Code</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="Code" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="Name" />
+        </div>
+      </div>
+      <div class="form-group">  
+        <label for="city" class="col-sm-2 control-label">City</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="City" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="country" class="col-sm-2 control-label">Country</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="Country" name ="Country"></select>
+            <script language="javascript">
+              populateCountries("Country");
+            </script>
+        </div>
+      </div>
+      <button class="btn btn-success">Add Airport</button>
+    </form>
+  <br>
+  </div>
+  
+  <div id="Add an Aircraft Manufacturer" ng-show="Op=='AAM'"><h3>Add an Aircraft Manufacturer</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addAircraft_Manufacturer()" method="post">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="name" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="country" class="col-sm-2 control-label">Country</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="country" name ="country"></select>
+             <script language="javascript">
+                populateCountries("country");
+             </script>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="year" class="col-sm-2 control-label">Year founded</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="number" name="year_founded" />
+        </div>
+      </div>
+      <button class="btn btn-success">Add Manufacturer</button>
+    </form>
+  <br>
+  </div>
+
+  <div id="Add a Passenger" ng-show="Op=='AP'"><h3>Add a Passenger</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addPassenger()" method="post">
+      <div class="form-group">
+        <label for="fistname" class="col-sm-2 control-label">First Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="FirstName" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="LastName" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob" class="col-sm-2 control-label">Date of Birth</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="date" name="Dob" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gender" class="col-sm-2 control-label">Gender</label>
+        <div class="col-sm-10"> 
+          <label class="checkbox-inline">
+            <input type="radio" name="Gender" value="M" /> Male
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="Gender" value="F" /> Female
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nationality" class="col-sm-2 control-label">Nationality</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="Nationality" name ="Nationality"></select>
+            <script language="javascript">
+              populateCountries("Nationality");
+            </script>
+        </div>
+      </div>
+      <button class="btn btn-success">Add Passenger</button>
+    </form>
+  <br>
+  </div>
+
+  <div id="Add a New Plane" ng-show="Op=='ANP'"><h3>Add a New Plane</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addAircraft_Model()" method="post">
+      <div class="form-group">
+        <label for="tailnum" class="col-sm-2 control-label">Tail Number</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="plane_tailnum" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="modelname" class="col-sm-2 control-label">Model Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="plane_model" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="engtype" class="col-sm-2 control-label">Engine Type</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="plane_engine_type" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="date" class="col-sm-2 control-label">Issued Date</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="date" name="plane_issue_date" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="manu" class="col-sm-2 control-label">Manufacturer</label>
+          <div class="col-sm-10" id="manufacturers_dropdown" style="display: inline"></div>
+      </div>
+      <button class="btn btn-success">Add Plane</button>
+    </form>
+  <br>
+  </div>
+
+  <div id="Add a Carrier" ng-show="Op=='AC'"><h3>Add a Carrier</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addCarrier()" method="post">
+      <div class="form-group">
+        <label for="code" class="col-sm-2 control-label">IATA Code</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="carrier_code" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="carrier" class="col-sm-2 control-label">Carrier Name</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="carrier_name" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="country" class="col-sm-2 control-label">Country</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="country2" name ="country2"></select>
+            <script language="javascript">
+              populateCountries("country2");
+            </script>
+        </div>
+      </div>
+      <button class="btn btn-success">Add Carrier</button>
+    </form>
+  <br>
+  </div>
+
+  <div id="Add a Ticket" ng-show="Op=='AT'"><h3>Add a Ticket</h3>
+    <form class="form-horizontal" role="form" action="@routes.Application.addTicket()" method="post">
+      <div class="form-group">
+        <label for="ticket" class="col-sm-2 control-label">Ticket Number</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="ticket_number" placeholder="Pure number"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="seat" class="col-sm-2 control-label">Ticket Seat</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="ticket_seat" placeholder="1A"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price" class="col-sm-2 control-label">Price</label>
+        <div class="col-sm-10">
+          <input type="text" name="ticket_price" class="form-control" placeholder="In USD"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" name="ticket_last_name" class="form-control" placeholder="Passenger name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="firstname" class="col-sm-2 control-label">First Name</label>
+        <div class="col-sm-10">
+          <input type="text" name="ticket_first_name" class="form-control" placeholder="Passenger name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dob" class="col-sm-2 control-label">Date of Birth</label>
+        <div class="col-sm-10">
+          <input type="date" name="ticket_dob" class="form-control" placeholder="yyyy/mm/dd"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="flightnumber" class="col-sm-2 control-label">Flight Number</label>
+        <div class="col-sm-10">
+          <input type="text" name="ticket_flight_number" class="form-control" placeholder="Please include carrier code"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="date" class="col-sm-2 control-label">Flight Date</label>
+        <div class="col-sm-10">
+          <input type="date" name="ticket_flight_date" class="form-control" placeholder="yyyy/mm/dd"/>
+        </div>
+      </div>
+      <button class="btn btn-success">Add Ticket</button>
+    </form>
+  <br>
+  </div>
+
+  <script>
+    document.getElementById('carrier_dropdown').innerHTML = httpGet('/getCarrierList/0');
+    document.getElementById('carrier_dropdown1').innerHTML = httpGet('/getCarrierList/1');
+    document.getElementById('carrier_dropdown2').innerHTML = httpGet('/getCarrierList/2');
+    document.getElementById('carrier_dropdown3').innerHTML = httpGet('/getCarrierList/3');
+    document.getElementById('airport_dropdown').innerHTML = httpGet('/getAirportCodeList/0');
+    document.getElementById('airport_dropdown1').innerHTML = httpGet('/getAirportCodeList/1');
+    document.getElementById('airport_dropdown2').innerHTML = httpGet('/getAirportCodeList/2');
+    document.getElementById('manufacturers_dropdown').innerHTML = httpGet('/getManufacturerList/0');
+  </script>
+}

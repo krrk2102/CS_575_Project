@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                   controllers.Application.index()
+
+POST    /addFlight                          controllers.Application.addFlight()
+POST    /addAircraft_Manufacturer           controllers.Application.addAircraft_Manufacturer()
+POST    /addAircraft_Model                  controllers.Application.addAircraft_Model()
+POST    /addAirport                         controllers.Application.addAirport()
+POST    /addCarrier                         controllers.Application.addCarrier()
+POST    /addPassenger                       controllers.Application.addPassenger()
+POST    /addTicket                          controllers.Application.addTicket()
+
+GET     /getFlight/:flightNum               controllers.Application.getFlight(flightNum: String)
+GET     /getRoute/:Route                    controllers.Application.getRoute(Route: String)
+GET     /getDes/:Ori                        controllers.Application.getDes(Ori: String)
+GET     /getFlightByCarrier/:Code           controllers.Application.getFlightByCarrier(Code: String)
+GET     /getBoughtTickets/:Passengers       controllers.Application.getBoughtTickets(Passengers: String)
+GET     /getTakingPassengers/:flight_info   controllers.Application.getTakingPassengers(flight_info: String)
+
+GET     /getCarrierStats/:Carrier           controllers.Application.getCarrierStats(Carrier: String)
+GET     /getStatsByCountry/:Country         controllers.Application.getStatsByCountry(Country: String)
+GET     /getCarrierList/:i                  controllers.Application.getCarrierList(i: Integer)
+GET     /getAirportCodeList/:i              controllers.Application.getAirportCodeList(i: Integer)
+GET     /getManufacturerList/:i             controllers.Application.getManufacturerList(i: Integer)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                       controllers.Assets.at(path="/public", file)
